@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Counter</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 400px;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #555;
+      border-radius: 8px;
+      background-color: #2b2b2b;
+      color: #ffffff;
+      resize: none;
+      outline: none;
+    }
+
+    .counter {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .warning {
+      color: #ff4c4c; /* Red warning */
+      font-weight: bold;
+    }
+
+    .safe {
+      color: #00ffcc; /* Aqua for safe */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Type Your Message</h2>
+    <textarea id="message" maxlength="200" placeholder="Write something..."></textarea>
+    <div id="counter" class="counter safe">0/200 characters</div>
+    <div id="warning"></div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById("message");
+    const counter = document.getElementById("counter");
+    const warning = document.getElementById("warning");
+    const maxChars = 200;
+
+    textarea.addEventListener("input", () => {
+      let typed = textarea.value.length;
+      let remaining = maxChars - typed;
+
+      counter.textContent = `${typed}/${maxChars} characters`;
+
+      if (typed >= maxChars) {
+        counter.classList.remove("safe");
+        counter.classList.add("warning");
+        warning.textContent = "You have reached the character limit!";
+      } else {
+        counter.classList.remove("warning");
+        counter.classList.add("safe");
+        warning.textContent = "";
+      }
+    });
+  </script>
+</body>
+</html>
